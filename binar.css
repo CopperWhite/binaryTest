@@ -1,0 +1,25 @@
+#buttonsContainer {
+
+}
+
+.zero {
+	align:center;
+}
+
+.button {
+	width: 126px;
+	height: 126px;
+	background-image: url(button.png);
+	display: inline-block;
+	text-align: center;
+	font-size: 600%;
+	color: white;
+	cursor: pointer;
+}
+
+#resultContainer {
+	display: inline-block;
+	align: center;
+	text-align: center;
+	font-size: 500%;
+}
