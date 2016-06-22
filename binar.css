@@ -1,18 +1,24 @@
-#buttonsContainer {
-
-}
-
 .zero {
 	align:center;
 }
 
+#optionsContainer {
+	display: inline-block;
+}
+
+#timerContainer {
+	font-size: 350%;
+	color: red;
+}
+
 .button {
-	width: 126px;
-	height: 126px;
+	width: 70px;
+	height: 70px;
 	background-image: url(button.png);
+	background-size: 100%;
 	display: inline-block;
 	text-align: center;
-	font-size: 600%;
+	font-size: 350%;
 	color: white;
 	cursor: pointer;
 }
@@ -21,5 +27,45 @@
 	display: inline-block;
 	align: center;
 	text-align: center;
-	font-size: 500%;
+	font-size: 350%;
+}
+
+#radioContainer {
+	display: inline-block;
+}
+
+#startContainer {
+	display: inline-block;
+	width: 210px;
+	height: 70px;
+	background-size: 100%;
+	font-size: 300%;
+	text-align: center;
+	align: center;
+	background-image: url(startButton.png);
+	color: white;
+	cursor: pointer;
+}
+
+#radioContainer {
+	font-size: 200%;
+	color: black;
+}
+
+#aimContainer {
+	font-size: 300%;
+	color: black;
+}
+
+#minutesContainer {
+	display: inline-block;
+}
+
+#secondsContainer {
+	display: inline-block;
+}
+
+#scoresContainer {
+	font-size: 150%;
+	color: black;
 }
