@@ -30,8 +30,10 @@
 	font-size: 350%;
 }
 
-#radioContainer {
+#levelContainer {
 	display: inline-block;
+	font-size: 300%;
+	color: black;
 }
 
 #startContainer {
@@ -45,11 +47,6 @@
 	background-image: url(startButton.png);
 	color: white;
 	cursor: pointer;
-}
-
-#radioContainer {
-	font-size: 200%;
-	color: black;
 }
 
 #aimContainer {
@@ -68,4 +65,8 @@
 #scoresContainer {
 	font-size: 150%;
 	color: black;
+}
+
+#buttonsContainer {
+	display: flex;
 }

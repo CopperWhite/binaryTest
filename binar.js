@@ -9,7 +9,13 @@ $(function(){
 
 	var buttonValue = '';
 
+	var level = 1;
+
+	var timeLimit = 2*level+1-(level/2-1)*2;
+
 	var aim = undefined;
+
+	var endGame = 0;
 
 	$('.button').on('click',function() {
 		if (aim != undefined) {
@@ -38,12 +44,20 @@ $(function(){
 			$('#resultContainer').append(' = '+intValue);
 
 			if (intValue==aim) {
-				alert('Верно!');
+				if ((minutes*60+seconds-1)<timeLimit) {
+					alert('Верно!');
+					level++;
+					timeLimit = 2*level+1-(level/2-1)*2;
+					$('#levelContainer').html('');
+					$('#levelContainer').append('Уровень: '+level+' (Ограничение: '+timeLimit+' сек.)')
+				} else {
+					alert('Слишком медленно!')
+				}
 				c=1;		
 				var str = buttonValue;
 				str = str<<0;
-				$('#scoresContainer').append('Цель: '+aim+'; Результат: '+str+'; Время: '
-					+minutes+':'+(seconds-1)+'</br>');
+				$('#scoresContainer').append('</br> Уровень: '+(level-1)+'; Цель: '+aim+'; Результат: '+str+'; Время: '
+					+minutes+':'+(seconds-1));
 				aim = undefined;
 			} // проверяем на победу и выполняем соответствующие действия
 
@@ -89,29 +103,20 @@ $(function(){
 	}; //функция для начала новой игры
 
 	$('#startContainer').on('click',function() {
-		var aimDif = document.getElementsByName('difficulty');
-		for (var i=0; i<aimDif.length; i++) {
-			if (aimDif[i].checked) {
-				var value = aimDif[i].value;
-			}
+		var minVal = 2*2*level;
+		var maxVal = 2*2*2*level-1;
+
+		if (maxVal>1023) {
+
+			alert('Поздравляем! Вы прошли последний уровень!');
+			$('#levelContainer').html('');
+			$('#levelContainer').append('Уровень: 1 (Ограничение 3 сек.)');
+			endGame = 1;
 		}
 
-		switch (value) {
-			case "0":
-				aim = Math.round(Math.random() * (99 - 1) + 1);
-				newGame(aim);
-				break;
-			case "1":
-				aim = Math.round(Math.random() * (511 - 100) + 100);
-				newGame(aim);
-				break;
-			case "2":
-				aim = Math.round(Math.random() * (1023 - 512) + 512);
-				newGame(aim);
-				break;
-			default:
-				alert('Выберите уровень сложности!');
-				break;
-		} //начинаем новую игру в зависимости от уровня сложности
+		if (endGame != 1) {
+			aim = Math.round(Math.random() * (maxVal - minVal) + minVal);
+			newGame(aim);
+		}
 	}) //функция для клика по кнопке "начать"
 })
