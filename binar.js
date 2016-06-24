@@ -6,16 +6,13 @@ $(function(){
 	$('#resultContainer').append(' = 0'); //устанавливаем результат = 0;
 
 	var c=0;
-
 	var buttonValue = '';
-
 	var level = 1;
-
-	var timeLimit = 2*level+1-(level/2-1)*2;
-
+	var timeLimit = 9;
 	var aim = undefined;
-
 	var endGame = 0;
+	var clickedOnce = 1;
+	var leveler = 1;
 
 	$('.button').on('click',function() {
 		if (aim != undefined) {
@@ -44,15 +41,38 @@ $(function(){
 			$('#resultContainer').append(' = '+intValue);
 
 			if (intValue==aim) {
+				clickedOnce = 1;
 				if ((minutes*60+seconds-1)<timeLimit) {
 					alert('Верно!');
 					level++;
 					timeLimit = 2*level+1-(level/2-1)*2;
+					if (level<5) {
+						timeLimit = timeLimit*3;
+					} else if (level<10) {
+						timeLimit = timeLimit*2;
+						if (timeLimit>=20) {
+							timeLimit = timeLimit-5;
+						}
+					} else if (timeLimit>=20) {
+						timeLimit = timeLimit-5;
+					} else if (timeLimit>30) {
+						timeLimit = timeLimit-15;
+					}
+					
 					$('#levelContainer').html('');
 					$('#levelContainer').append('Уровень: '+level+' (Ограничение: '+timeLimit+' сек.)')
 				} else {
 					alert('Слишком медленно!')
 				}
+
+				if (level==5) {
+					alert('Разминка закончена!');
+					leveler = 3;
+				} else if (level==10) {
+					alert('Теперь начинается настоящая игра!');
+					leveler = 6;
+				}
+
 				c=1;		
 				var str = buttonValue;
 				str = str<<0;
@@ -103,20 +123,18 @@ $(function(){
 	}; //функция для начала новой игры
 
 	$('#startContainer').on('click',function() {
-		var minVal = 2*2*level;
-		var maxVal = 2*2*2*level-1;
+		var minVal = 2*2*level-3;
+		var maxVal = level*minVal;
 
 		if (maxVal>1023) {
-
 			alert('Поздравляем! Вы прошли последний уровень!');
-			$('#levelContainer').html('');
-			$('#levelContainer').append('Уровень: 1 (Ограничение 3 сек.)');
 			endGame = 1;
 		}
 
-		if (endGame != 1) {
-			aim = Math.round(Math.random() * (maxVal - minVal) + minVal);
+		if ((endGame != 1)&&clickedOnce==1) {
+			aim = Math.round(Math.random() * (maxVal - minVal) + leveler*minVal);
 			newGame(aim);
+			clickedOnce = 0;
 		}
 	}) //функция для клика по кнопке "начать"
 })
