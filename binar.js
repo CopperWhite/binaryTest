@@ -13,6 +13,24 @@ $(function(){
 	var endGame = 0;
 	var clickedOnce = 1;
 	var leveler = 1;
+	var firstClick = 1;
+	var list = Array();
+
+	var champArray = $.cookie('champArray');
+	var champions = eval(champArray);
+	
+	if (champArray == null) {
+		var champions = new Array (
+			{"name":"unnamed","time":999},
+			{"name":"unnamed","time":999},
+			{"name":"unnamed","time":999},
+			{"name":"unnamed","time":999},
+			{"name":"unnamed","time":999}
+		);
+
+		champions=JSON.stringify(champions);
+		$.cookie('champArray', champions, {expires: 30});
+	}
 
 	$('.button').on('click',function() {
 		if (aim != undefined) {
@@ -79,6 +97,7 @@ $(function(){
 				$('#scoresContainer').append('</br> Уровень: '+(level-1)+'; Цель: '+aim+'; Результат: '+str+'; Время: '
 					+minutes+':'+(seconds-1));
 				aim = undefined;
+
 			} // проверяем на победу и выполняем соответствующие действия
 
 			buttonValue = '';// стираем строку
@@ -105,6 +124,21 @@ $(function(){
 		}
 	}; //функция для таймера
 
+	var totalSeconds = 0;
+	var totalMinutes = 0;
+	function totalTimer() {
+		$('#totalMinutesContainer').html('');
+		$('#totalMinutesContainer').append(totalMinutes+': ');
+		$('#totalSecondsContainer').html('');
+		$('#totalSecondsContainer').append(totalSeconds);
+		totalSeconds++;
+		if (totalSeconds==60) {
+			totalSeconds=0;
+			totalMinutes++
+		};
+		setTimeout(totalTimer, 1000);
+	} //функция для общего таймера
+
 	function newGame (aim) {
 		$('.button').each(function() {
 			$(this).removeClass('ane');
@@ -123,18 +157,52 @@ $(function(){
 	}; //функция для начала новой игры
 
 	$('#startContainer').on('click',function() {
+		
+		if (firstClick == 1) {
+			totalTimer();
+			firstClick = 0;
+		}
+
 		var minVal = 2*2*level-3;
 		var maxVal = level*minVal;
 
-		if (maxVal>1023) {
-			alert('Поздравляем! Вы прошли последний уровень!');
-			endGame = 1;
-		}
-
 		if ((endGame != 1)&&clickedOnce==1) {
 			aim = Math.round(Math.random() * (maxVal - minVal) + leveler*minVal);
-			newGame(aim);
-			clickedOnce = 0;
+			if (aim>1023||maxVal>1023||level>15) {
+				alert('Поздравляем! Вы прошли последний уровень!');
+				for (var i=0;i<5;i++) {
+					var champArray = $.cookie('champArray');
+					var champions = eval(champArray);
+					if (champions[i].time>(totalMinutes*60+totalSeconds)) {
+						alert('Вы поставили рекорд!');
+						champions[i].time = (totalMinutes*60+totalSeconds);
+						champions[i].name = $('#name').val();           
+						champions=JSON.stringify(champions);
+						$.cookie('champArray',champions, {expires: 30});
+						showList();
+						break;
+					}
+				}
+				endGame = 1;
+			} else {
+				newGame(aim);
+				clickedOnce = 0;
+			}
 		}
 	}) //функция для клика по кнопке "начать"
+
+	function showList() {
+		var champArray = $.cookie('champArray');
+		var champions = eval(champArray);
+		for (var i=0; i<5; i++) {
+			text = '\n'+(i+1)+'. '+champions[i]['name']+' : '+ champions[i]['time']+' сек.';
+			list[i] = text;
+		}
+		alert(list);
+	}
+
+	$('#championsContainer').on('click', function() {
+		showList();
+	})
+
 })

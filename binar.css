@@ -2,10 +2,6 @@
 	align:center;
 }
 
-#optionsContainer {
-	display: inline-block;
-}
-
 #timerContainer {
 	font-size: 350%;
 	color: red;
@@ -52,6 +48,7 @@
 #aimContainer {
 	font-size: 300%;
 	color: black;
+	height:100px;
 }
 
 #minutesContainer {
@@ -69,4 +66,39 @@
 
 #buttonsContainer {
 	display: flex;
+}
+
+#nameContainer {
+	font-size: 200%;
+	display: inline-block;
+}
+
+#name {
+	font-size: 100%;
+}
+
+#totalTimerContainer {
+	font-size: 350%;
+	color: blue;
+}
+
+#totalMinutesContainer {
+	display: inline-block;
+}
+
+#totalSecondsContainer {
+	display: inline-block;
+}
+
+.grade {
+	display: inline-block;
+	width: 66.3px;
+	text-align: center;
+	font-size: 150%;
+}
+
+#championsContainer {
+	display: inline-block;
+	font-size: 250%;
+	cursor: pointer;
 }

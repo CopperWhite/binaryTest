@@ -4,10 +4,20 @@
 		<meta charset='utf-8'>
 		<title></title>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<script type="text/javascript" src="jquery.cookie.js"></script>
 		<script type="text/javascript" src="binar.js"></script>
 		<link href='binar.css' rel='stylesheet'>
 	</head>
 	<body>
+		<div id='nameContainer'>
+			Введите ваше имя:
+			<input type="text" id='name'>
+		</div>
+		<div id='championsContainer'>     Список лидеров</div>
+		<div id='totalTimerContainer'>
+			<div id='totalMinutesContainer'>0:</div>
+			<div id='totalSecondsContainer'>0</div>
+		</div>
 		<div id='optionsContainer'>
 			<div id='levelContainer'>Уровень: 1 (Ограничение 9 сек.) </div>
 			<div id='startContainer'>
@@ -20,6 +30,18 @@
 		</div>
 		<div id='aimContainer'>
 			Цель = 
+		</div>
+		<div>
+			<div class='grade'>512</div>
+			<div class='grade'>256</div>
+			<div class='grade'>128</div>
+			<div class='grade'>64</div>
+			<div class='grade'>32</div>
+			<div class='grade'>16</div>
+			<div class='grade'>8</div>
+			<div class='grade'>4</div>
+			<div class='grade'>2</div>
+			<div class='grade'>1</div>
 		</div>
 		<div id='buttonsContainer'>
 			<div class='button zero'></div>
