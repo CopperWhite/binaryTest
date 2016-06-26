@@ -18,7 +18,7 @@ $(function(){
 
 	var champArray = $.cookie('champArray');
 	var champions = eval(champArray);
-	
+
 	if (champArray == null) {
 		var champions = new Array (
 			{"name":"unnamed","time":999},
@@ -30,7 +30,10 @@ $(function(){
 
 		champions=JSON.stringify(champions);
 		$.cookie('champArray', champions, {expires: 30});
-	}
+	};
+
+	var champArray = $.cookie('champArray');
+	var champions = eval(champArray);
 
 	$('.button').on('click',function() {
 		if (aim != undefined) {
@@ -171,14 +174,28 @@ $(function(){
 			if (aim>1023||maxVal>1023||level>15) {
 				alert('Поздравляем! Вы прошли последний уровень!');
 				for (var i=0;i<5;i++) {
-					var champArray = $.cookie('champArray');
-					var champions = eval(champArray);
 					if (champions[i].time>(totalMinutes*60+totalSeconds)) {
 						alert('Вы поставили рекорд!');
+						var e=4;
+
+						while (e>i) {
+							champArray = $.cookie('champArray');
+							champions = eval(champArray);
+							champions[e] = champions[e-1];
+							e--;
+							champions=JSON.stringify(champions);
+							$.cookie('champArray',champions, {expires: 30});
+						}
+
+						champArray = $.cookie('champArray');
+						champions = eval(champArray);
 						champions[i].time = (totalMinutes*60+totalSeconds);
-						champions[i].name = $('#name').val();           
+						champions[i].name = $('#name').val();
+
 						champions=JSON.stringify(champions);
 						$.cookie('champArray',champions, {expires: 30});
+
+
 						showList();
 						break;
 					}
@@ -192,16 +209,16 @@ $(function(){
 	}) //функция для клика по кнопке "начать"
 
 	function showList() {
-		var champArray = $.cookie('champArray');
-		var champions = eval(champArray);
+		champArray = $.cookie('champArray');
+		champions = eval(champArray);
 		for (var i=0; i<5; i++) {
 			text = '\n'+(i+1)+'. '+champions[i]['name']+' : '+ champions[i]['time']+' сек.';
 			list[i] = text;
 		}
 		alert(list);
-	}
+	} //функция вывода списка лидеров
 
-	$('#championsContainer').on('click', function() {
+	$('#championsContainer').on('click', function() {	
 		showList();
 	})
 
