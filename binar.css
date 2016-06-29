@@ -99,6 +99,23 @@
 
 #championsContainer {
 	display: inline-block;
-	font-size: 250%;
+	font-size: 200%;
 	cursor: pointer;
+}
+
+#linkContainer {
+	font-size: 200%;
+	width: 100%;
+}
+
+.linkBlock {
+	display: inline-block;
+	text-decoration: underline;
+	width: 24%;
+	height: 100px;
+	text-align: center;
+}
+
+#chosenOne {
+	color: red;
 }
