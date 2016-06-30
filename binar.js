@@ -144,7 +144,8 @@ $(function(){
 
 	function newGame (aim) {
 		$('.button').each(function() {
-			$(this).removeClass('ane');
+			$(this).removeClass();
+			$(this).addClass('button');
 			$(this).addClass('zero');
 			$(this).html('');
 			$(this).append('0');

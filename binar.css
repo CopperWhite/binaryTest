@@ -5,6 +5,7 @@
 #timerContainer {
 	font-size: 350%;
 	color: red;
+	height: 70px;
 }
 
 .button {
@@ -119,3 +120,20 @@
 #chosenOne {
 	color: red;
 }
+
+.linksBlock {
+	display: inline-block;
+	text-decoration: underline;
+	width: 32%;
+	height: 50px;
+	text-align: center;
+}
+
+body {
+	background-image: url(background.jpg);
+}
+
+iframe
+{
+    background-color: transparent;
+} 
